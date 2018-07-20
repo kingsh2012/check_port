@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load tz %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="text-center">
+                开源checkport状态列表({{ env }})
+            </h3>
+            <table class="table" id="checkport_table">
+                <thead>
+                    <tr>
+                        <th>
+                            域名
+                        </th>
+                        <th>
+                            服务器
+                        </th>
+                        <th>
+                            端口
+                        </th>
+                        <th>
+                            状态
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instance in instances %}
+                    {% if instance.status == 1 %}
+                    <tr class="warning">
+                        <td>
+                            {{ instance.server_name }}
+                        </td>
+                        <td>
+                            {{ instance.host }}
+                        </td>
+                        <td>
+                            {{ instance.port }}
+                        </td>
+                        <td>
+                            未知
+                        </td>
+                    </tr>
+                    {% elif instance.status == 2 %}
+                    <tr class="success">
+                        <td>
+                            {{ instance.server_name }}
+                        </td>
+                        <td>
+                            {{ instance.host }}
+                        </td>
+                        <td>
+                            {{ instance.port }}
+                        </td>
+                        <td>
+                            在线
+                        </td>
+                    </tr>
+                    {% elif instance.status == 3 %}
+                    <tr class="danger">
+                        <td>
+                            {{ instance.server_name }}
+                        </td>
+                        <td>
+                            {{ instance.host }}
+                        </td>
+                        <td>
+                            {{ instance.port }}
+                        </td>
+                        <td>
+                            离线
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footjs %}
+<script type="text/javascript">
+    $("#fwqzt_tree").addClass("active");
+    $("#fwqzt_{{ env }}").addClass("active");
+    $(document).ready(function() {
+        $('#checkport_table').DataTable({
+            "aaSorting" : [[3, "desc"]],
+            "aLengthMenu" : [10, 50, 100, 200, 500],
+            "iDisplayLength":50,
+            });
+        $('#checkport_table').addClass('table table-striped table-bordered');
+    }); 
+</script>
+{% endblock %}

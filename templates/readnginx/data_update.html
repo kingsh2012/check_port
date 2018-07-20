@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load tz %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="col-md-12 column">
+			<h3 class="text-center">
+				数据更新后台
+			</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+			<div class="row-fluid">
+				<div class="col-md-4 column">
+					 <button class="btn btn-large btn-block btn-info btn-lg" type="button" id="git_pull">GIT PULL仓库</button>
+				</div>
+				<div class="col-md-4 column">
+					 <button class="btn btn-block btn-large btn-success btn-lg" type="button" id="read_nginx">读取nginx仓库</button>
+				</div>
+				<div class="col-md-4 column">
+					 <button class="btn btn-block btn-large btn-warning btn-lg" type="button" id="check_port">checkport!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block footjs %}
+<script type="text/javascript">
+    $("#sjgx").addClass("active");
+    $("#back_tree").addClass("active");
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+     
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+    	var csrftoken = getCookie('csrftoken');  	
+    	if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    $("#git_pull").click(function() {
+        var data = JSON.stringify({ "method":"git_pull" })
+        $.ajax({
+            url: "/data_update",
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            async: true,
+            complete: function(msg) {
+                alert("任务已发出!");
+            }
+        })
+    });
+
+    $("#read_nginx").click(function() {
+        var data = JSON.stringify({ "method":"read_nginx"})
+        $.ajax({
+            url: "/data_update",
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            async: true,
+            complete: function(msg) {
+                alert("任务已发出!");
+            }
+        })
+    });
+
+    $("#check_port").click(function() {
+        var data = JSON.stringify({ "method":"check_port" })
+        $.ajax({
+            url: "/data_update",
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            async: true,
+            complete: function(msg) {
+                alert("任务已发出!");
+            }
+        })
+    });
+</script>
+{% endblock %}
