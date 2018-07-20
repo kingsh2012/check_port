@@ -6,10 +6,10 @@ import os
 from pubstatus.models import instance
 
 CONFIG_PATHS_TEST = [
-    "/opt/code/fenbi-testnginx/"
+    ""
 ]
 
-GIT_PATH_TEST = '/opt/code/fenbi-testnginx/'
+GIT_PATH_TEST = ''
 
 
 def _get_upstreams(config_file):
@@ -96,7 +96,7 @@ def main_pipeline_test():
 
 if __name__ == "__main__":
     # print _get_upstreams(
-    #     '/opt/code/fenbi-salt/salt/docker/tx-fenbi-zhibo-internginx/conf/conf.d/com.fenbilantian.truman-innerapi.conf')
+    #     '')
     # print _get_server_name(
-    #     '/opt/code/fenbi-salt/salt/docker/tx-fenbi-zhibo-internginx/conf/conf.d/com.fenbilantian.truman-innerapi.conf')
+    #     '')
     main_pipeline_test()
