@@ -11,10 +11,10 @@ check_port
 4.增加自定义追踪模式(非nginx配置文件解析)
 ```
 添加自定义探测:
-![image](https://note.youdao.com/favicon.ico)
+![image](https://raw.githubusercontent.com/calmkart/check_port/master/custom.png)
 
 后台管理:
-![image](https://note.youdao.com/favicon.ico)
+![image](https://raw.githubusercontent.com/calmkart/check_port/master/back.png)
 
 ```
 #大致部署过程
